@@ -1,0 +1,9 @@
+pandas
+numpy
+requests
+folium
+matplotlib
+seaborn
+plotly
+streamlit
+openpyxl
