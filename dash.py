@@ -24,6 +24,11 @@ def load_data():
     return pd.read_excel('data/2022년 서울시 주거실태조사 마이크로데이터.xlsx',
                          usecols=['SIGUNGU', 'Q7', 'Q12_1', 'Q21_1_A', 'Q25_1', 'Q25_2', 'Q46_A3_1', 'Q46_A4_1', 'Q46_1', 'Q49_1_6', 'Q50_1', 'Q52_4'])
 
+uploaded_file = st.file_uploader("파일을 업로드하세요", type=["xlsx"])
+if uploaded_file is not None:
+    df = load_data(uploaded_file)
+    st.dataframe(df)
+
 df = load_data()
 
 my_df = df.copy()  # df를 복사하여 my_df 생성
