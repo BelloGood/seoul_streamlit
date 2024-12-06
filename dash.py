@@ -19,7 +19,7 @@ if uploaded_file is not None:
 else:
     st.warning("파일을 업로드해주세요!")
   
-df = load_data()
+#df = load_data()
 
 my_df = df.copy()  # df를 복사하여 my_df 생성
 
