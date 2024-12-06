@@ -1,34 +1,24 @@
-import pandas as pd
-import numpy as np
-import requests
-import json
-from pandas import json_normalize
-import os
-import webbrowser
-import folium
-from folium import plugins
-import matplotlib.pyplot as plt
-import seaborn as sns
-import plotly.express as px
-sns.set_theme(style='whitegrid', font_scale=1.5)
-sns.set_palette('Set2', n_colors=10)
-plt.rc('font', family='AppleGothic')
-plt.rc('axes', unicode_minus=False)
 import streamlit as st
-
-st.set_page_config(page_title='조별과제(이형호, 김보람)',
-                   page_icon='\U0001F4DD', layout='wide')
+import pandas as pd
 
 @st.cache_data
-def load_data():
-    return pd.read_excel('data/2022년 서울시 주거실태조사 마이크로데이터.xlsx',
-                         usecols=['SIGUNGU', 'Q7', 'Q12_1', 'Q21_1_A', 'Q25_1', 'Q25_2', 'Q46_A3_1', 'Q46_A4_1', 'Q46_1', 'Q49_1_6', 'Q50_1', 'Q52_4'])
+def load_data(uploaded_file):
+    return pd.read_excel(uploaded_file, usecols=[
+        'SIGUNGU', 'Q7', 'Q12_1', 'Q21_1_A', 'Q25_1', 'Q25_2', 
+        'Q46_A3_1', 'Q46_A4_1', 'Q46_1', 'Q49_1_6', 'Q50_1', 'Q52_4'
+    ])
+
+st.title("서울시 주거실태조사 데이터")
 
 uploaded_file = st.file_uploader("파일을 업로드하세요", type=["xlsx"])
 if uploaded_file is not None:
+    # 데이터 로드
     df = load_data(uploaded_file)
-    st.dataframe(df)
-
+    my_df = df.copy()  # 복사본 생성
+    st.dataframe(my_df)  # 데이터 표시
+else:
+    st.warning("파일을 업로드해주세요!")
+  
 df = load_data()
 
 my_df = df.copy()  # df를 복사하여 my_df 생성
